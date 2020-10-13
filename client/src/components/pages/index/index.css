@@ -1,0 +1,37 @@
+
+.pseudobody{
+    display: flex;
+    font-family: 'Titillium Web', sans-serif
+}
+
+.indexBackground{
+    background-image: url(./backgroundRodex2.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
+
+.logo{
+
+    height: 15%;
+    padding-top: 60px;
+    display:block;
+    margin: auto;
+
+}
+
+.index-button {
+    color: white;
+    font-weight: 500px;
+    font-size: 1.3em;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    background-color: rgba(0, 37, 97); 
+    width: 55%;
+    display:block;
+    margin: 240px auto;
+}
