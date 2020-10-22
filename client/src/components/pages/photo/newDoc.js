@@ -1,17 +1,11 @@
 import React from 'react'
-
-import CameraPic from '../../pages/photo/photo'
-//import textract from '../components/pages/edit/edit'
+import CameraPic from './photo.js'
 
 function App() {
   return (
-    <>
-
 
     <CameraPic />
-
-    </>
+    
   )
 }
-
 export default App

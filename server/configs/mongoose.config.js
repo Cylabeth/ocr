@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const connectionString = 'mongodb+srv://rodexid:qYtvuf-5dyvgo-sachiz@cluster0.g04kq.mongodb.net/rodexid'
+const connectionString = process.env.DB_REMOTE
 
 mongoose
     .connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })

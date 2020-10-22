@@ -1,5 +1,13 @@
 .navbar-custom{
 
     background-color:rgb(0, 37, 97);
+    padding-bottom: -50px;
 
+}
+
+.logo-center{
+    display:block;
+    margin: auto 128px;
+    
+    
 }

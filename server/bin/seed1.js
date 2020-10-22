@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
 
-mongoose.connect('mongodb+srv://rodexid:qYtvuf-5dyvgo-sachiz@cluster0.g04kq.mongodb.net/rodexid')
+mongoose.connect(process.env.DB_REMOTE)
 
 
 

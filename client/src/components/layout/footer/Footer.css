@@ -1,16 +1,31 @@
 
 footer {
-    background: #333b3f;
+    background: #002561;
     color: white;
     font-size: .6em;
     text-align: center;
     padding: 4px;
     position: fixed;
     bottom: 0;
-    width: 100%
+    width: 100%;
+    flex-shrink: 0;
 }
 
 
 footer p {
 margin: 0
+}
+
+.footerBox{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px;    
+}
+.icon{
+  
+    width: 60px;
+
+
 }

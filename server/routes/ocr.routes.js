@@ -6,19 +6,12 @@ const Dni = require('../models/dni.model')
 const User = require('../models/user.model')
 
 
-const ID = 'AKIASMCXI34LFYFPNX6O'
-const SECRET = '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'
-const BUCKET_NAME = 'ocrtestwhite'
-const IDENTITY_POOL_ID = 'eu-west-1:b443c834-554d-4f39-a65d-1ea7264256d4'
-const REGION = 'eu-west-1' 
-
-/*
 const ID = process.env.ID
 const SECRET = process.env.SECRET
 const BUCKET_NAME = process.env.BUCKET_NAME
 const IDENTITY_POOL_ID = process.env.IDENTITY_POOL_ID
 const REGION = process.env.REGION
-*/
+
 
 
 let imgToBucket = ""
@@ -99,8 +92,10 @@ router.put('/form/:id', (req, res) => {
             
             data.Blocks.map(elem => allText.push(elem))
             allText.map(elem => elem.BlockType === "LINE" ? selectedText.push(elem.Text) : null)
+            let regexDNI = ""
             selectedText.map(elem => {
-                if(elem.includes("PRIM")){
+               
+                if(elem.includes("PRIMER")){ //   /\bPRIMER\b/ 
                     if(selectedText[2].length > 3){
                     usefulData.Apellidos.push(selectedText[2],selectedText[5])}
                     else{
@@ -108,17 +103,17 @@ router.put('/form/:id', (req, res) => {
 
                     docSurname = usefulData.Apellidos.toString().replace(/,/g, ' ')}
                     
-                    else if (elem.includes("APELLIDOS")){
+                    else if (elem.includes("APELLIDOS")){  
                         usefulData.Apellidos.push(selectedText[3], selectedText[4])
                         docSurname = usefulData.Apellidos.toString().replace(/,/g, ' ')}
 
                         
-                    else if (elem.includes("NOMB")){
+                    else if (elem.includes("NOMBRE")){
                         let position = selectedText.indexOf(elem)
                         usefulData.Nombre.push(selectedText[position+1])
                         docName = usefulData.Nombre.toString()}
                     
-                    else if (elem.includes("SEX")){
+                    else if (elem.includes("SEXO")){
                         let position = selectedText.indexOf(elem)
                         usefulData.Sexo.push(selectedText[position+2])
                         docGender = usefulData.Sexo.toString()}
@@ -138,7 +133,7 @@ router.put('/form/:id', (req, res) => {
                         usefulData.ValidoHasta.push(selectedText[position+1])
                         docValidUntil = usefulData.ValidoHasta.toString()}  
                     
-                    else if (elem.includes("ALIDEZ")){
+                    else if (elem.includes("VALIDEZ")){
                         let position = selectedText.indexOf(elem)
                         let dateOnly = selectedText[position+1].split(' ').slice(1).join(' ')
                         usefulData.ValidoHasta.push(dateOnly)
@@ -154,6 +149,7 @@ router.put('/form/:id', (req, res) => {
                         docNumber = usefulData.DNINum.toString().replace(/,/g, '')}  
 
                 })
+                console.log(allText)
                 console.log(selectedText)      
                 //res.json(data) 
 
@@ -179,41 +175,12 @@ router.put('/form/:id', (req, res) => {
                     .catch(err => res.status(500).json(err))
             }           
 
+
     })
 
     
-    
-
 })
-/*router.put('/docup', (req, res) => {
 
-    //const imageURL = {imgURL: imgToBucket}
-    let {photourl} = req.body
-    Dni.findOneAndUpdate(photourl,{
-        docType: "Documento Nacional de Identidad",
-        docNumber: docNumber,
-        docName: docName,
-        docSurname: docSurname,
-        docGender: docGender,
-        docNationality: docNationality,
-        docBirthDate: docBirthDate,
-        docBirthPlace: "",
-        docAddress: "",
-        docValidUntil: docValidUntil,
-        docDetails: ""
-        //imgURL: "https://ocrtestwhite.s3-eu-west-1.amazonaws.com/" + params.Document.S3Object.Name
-        }, 
-        {new: true},
-    (err, doc) => {
-        if (err){
-            console.log("Problem updating")
-        }
-        console.log(doc)
-    })
-    
-
-})
-*/
 //listarchive
 
 router.get('/listarchive', (req, res) => {
@@ -257,7 +224,7 @@ router.put('/editdoc/:id', (req, res) => {
 
 
 router.delete('/detailsdni/delete/:dni_id', (req, res) => {
-
+    console.log(req.params.dni_id)
     if (!mongoose.Types.ObjectId.isValid(req.params.dni_id)) {
         res.status(400).json({ message: 'Specified id is not valid' })
         return

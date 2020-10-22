@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Navigation from './layout/navbar/Navbar'
-import Footer from './layout/footer/Footer'
-
+//import Footer from './layout/footer/Footer'
+import InicioUser from './pages/user/inicio'
 import Index from './pages/index/index'
 //import CameraPic from './pages/photo/photo'
 //import Historic from './pages/historic/historic'
@@ -14,6 +14,7 @@ import ShowDoc from './pages/photo/showDoc'
 import Archives from './pages/archive/archive'
 import DocDetails from './pages/dniDetails/details'
 import DocEdit from './pages/edit/edit'
+import Help from './pages/help/help'
 
 //import Alert from './shared/alert/Alert'
 
@@ -55,11 +56,12 @@ class App extends Component {
           <Route path = "/archive" exact render = {props => <Archives />} />
           <Route path = "/details/:dni_id" exact render = {props => <DocDetails {...props} />} />
           <Route path = "/edit/:dni_id" exact render = {props => <DocEdit {...props} />} />
-
+          <Route path = "/user"  render = {() => this.state.loggedInUser ? <InicioUser loggedInUser={this.state.loggedInUser} /> : <Redirect to="/login" />} />
+          <Route path = "/help" exact render = {props => <Help />} />
 
 
         </Switch>
-        <Footer />
+        
       </>
     )
   }
@@ -67,3 +69,4 @@ class App extends Component {
 
 export default App;
 
+//this.state.loggedInUser ? <InicioUser loggedInUser={this.state.loggedInUser} /> : <Redirect to="/login" />}

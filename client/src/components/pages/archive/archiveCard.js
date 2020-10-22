@@ -1,27 +1,45 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ListGroup from 'react-bootstrap/ListGroup'
+import './archive.css'
 
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-
-const ArchiveCard = ({_id, docType,docNumber,docName,docSurname}) => {
+const ArchiveCard = ({_id, docType,docNumber,docName,docSurname,remove}) => {
 
     return(
-        <Card>
-            <Card.Header as="h5">{docSurname},{docName} </Card.Header>
-                <Card.Body>
-                    <Card.Title>{docType}</Card.Title>
-                        <Card.Text>
-                            {docNumber}
-                        </Card.Text>
-                        <Button variant="secondary" size="sm">Editar</Button>
-                        <Button variant="secondary" size="sm">Borrar</Button>
-                        <Link to={`details/${_id}`} className="btn btn-dark btn-sm">Detalles</Link>
-                </Card.Body>
-        </Card>
+        <div>
+        
+
+           
+                <ListGroup.Item className="archiveElement">
+                <div className="archiveCardText">
+                    <p style={{fontWeight:'bold'}}>{docNumber}</p>
+                </div>
+                <div className="archiveCardButtonsBox">
+                <Link to={'/archive'} onClick={remove} className="buttonDelete"><i className="fa fa-times" aria-hidden="true"></i></Link>
+                <Link to={`details/${_id}`} className="buttonEdit"><i className="fa fa-check" aria-hidden="true" /></Link>
+                </div>
+                </ListGroup.Item>
+         
+              
+ 
+          
+        </div>
 
     )
 
 }
 
 export default ArchiveCard
+
+/*
+        <p> {docSurname} </p> 
+
+            <p style={{fontWeight:'bold'}}>{docNumber}</p>
+            <div>
+                <Link to={'/archive'} onClick={remove} className="buttonDelete"><i className="fa fa-times" aria-hidden="true"></i></Link>
+                <Link to={`details/${_id}`} className="buttonEdit"><i className="fa fa-check" aria-hidden="true" /></Link>
+            </div>
+
+
+
+*/

@@ -1,0 +1,36 @@
+
+h3{
+  padding-top: 50px;
+}
+
+h4{
+  padding-bottom: 10px;
+  padding-top: 7px;
+}
+
+p{
+  line-height: 1em;
+}
+
+.inicioBackground{
+  background-image: url(./img/backgroundRodexInicio.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #ffffff;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.inicioIconsImage{
+  width: auto;
+  height: 100px;
+  margin: 35px;
+}
+
+.inicioText{
+  margin: 30px;
+}
+
+
+

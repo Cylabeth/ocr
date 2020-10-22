@@ -1,37 +1,58 @@
 
 .pseudobody{
     display: flex;
+    flex-direction: column;
     font-family: 'Titillium Web', sans-serif
 }
 
 .indexBackground{
-    background-image: url(./backgroundRodex2.jpg);
+    background-image: url(./backgroundRodex3.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-color: #464646;
+    background-color: #ffffff;
 }
+
+.indexlogoContainer{
+    display: flex;
+}
+
 
 .logo{
 
-    height: 15%;
-    padding-top: 60px;
+    height: 100%;
+    width: 100%;
+    padding: 90px 50px 0px 50px;
     display:block;
-    margin: auto;
+    margin: 0 auto 100px auto;
+    align-self: flex-start
 
 }
 
-.index-button {
+
+.indexButton {
     color: white;
     font-weight: 500px;
-    font-size: 1.3em;
+    font-size: 1.6em;
     text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 6px 0;
     border-radius: 20px;
-    background-color: rgba(0, 37, 97); 
-    width: 55%;
+    background-color: rgba(4, 45, 113); 
+    width: 50%;
     display:block;
-    margin: 240px auto;
+    margin: 45px auto 20px auto;
+    align-self: flex-end;
+
+}
+
+.indexText{
+
+    color: rgba(4, 45, 113);
+    margin-top: 155px;
+    text-align: center;
+    font-size: 1.3em;
+    align-self: center;
+    line-height: 1em;
+
 }

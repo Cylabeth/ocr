@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link , withRouter} from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-
-
 import authService from './../../../services/auth.service'
-import logo from './logo_navbar.png'
+import home from './home.png'
 import './Navbar.css'
 
-export default class extends Component {
+class Navigation extends Component {
 
     constructor(props) {
         super(props)
@@ -20,35 +17,52 @@ export default class extends Component {
         this.authService
             .logout()
             .then(() => this.props.setTheUser(null))
+            .then(() => this.props.history.push('/'))
             .catch(err => console.log('error:', err))
     }
 
     render() {
         return (
-            <Navbar className="navbar-custom" variant="dark" expand="lg" style={{ marginBottom: '40px' }}>
-                <Link to="/">
+            <Navbar className="navbar-custom shadow" variant="dark" expand="lg" style={{ marginBottom: '0px' }}>
+                <Link to="/user">
                     <Navbar.Brand>
                         <img
-                            alt="Logotipo"
-                            src={logo}
-                            width="31"
-                            height="29"
+                            alt="Home"
+                            src={home}
+                            width="40"
+                            height="31"
                             className="d-inline-block align-top"
                         />{' '}
-                
-                </Navbar.Brand>
+                    </Navbar.Brand>
                 </Link>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav">
+
+                <i className="fa fa-user" aria-hidden="true"></i> 
+
+                </Navbar.Toggle>
+                
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto">
-                        <Link className="nav-link" to="/">Inicio</Link>
-                        <Link className="nav-link" to="/archive">Archivos</Link>
-                        {!this.props.loggedInUser && <Link className="nav-link" to="/login">Acceder</Link>}
-                        {this.props.loggedInUser && <div className="nav-link" onClick={this.logoutUser}>Cerrar sesión</div>}
+                    <Nav className="ml-auto" style={{display:"flex"}}>
                         <Link className="nav-link" to="/profile"> Hola, {this.props.loggedInUser ? this.props.loggedInUser.username : 'invitado'}</Link>
+
+                        {!this.props.loggedInUser && <Link className="nav-link" to="/login" >Acceder</Link>}
+                        {this.props.loggedInUser && <div className="nav-link" onClick={this.logoutUser}>Cerrar sesión</div>}
+
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar >
+            </Navbar>
         )
     }
 }
+export default withRouter(Navigation)
+/*
+
+                        <Link className="nav-link" to="/">Inicio</Link>
+                        <Link className="nav-link" to="/archive">Archivos</Link>
+                        <Link className="nav-link" to="/newDoc">Camara</Link>
+                        (login)
+                          <Link className="nav-link" to="/profile"> Hola, {this.props.loggedInUser ? this.props.loggedInUser.username : 'invitado'}</Link>
+                        
+
+
+*/

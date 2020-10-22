@@ -18,7 +18,7 @@ export default class DniService {
     getListDoc = () => this.api.get('/listarchive') //FUNCIONA
     getOneDoc = id => this.api.get(`/detailsdni/${id}`)
     editDoc = (id, dni) => this.api.put(`/editdoc/${id}`,dni)
-    deleteDoc = Id => this.api.delete(`/detailsdni/delete/${Id}`)
+    deleteDoc = id => this.api.delete(`/detailsdni/delete/${id}`)
    
 
 

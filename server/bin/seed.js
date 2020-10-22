@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Dni = require('../models/dni.model');
 
-mongoose.connect('mongodb+srv://rodexid:qYtvuf-5dyvgo-sachiz@cluster0.g04kq.mongodb.net/rodexid')
-
+mongoose.connect(process.env.DB_REMOTE)
 
 const dniDocs = [
 

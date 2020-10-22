@@ -1,6 +1,10 @@
-import React, { useRef, useState, useEffect, useImperativeHandle } from 'react';
+import React, { useRef, useState} from 'react'; //, useEffect, useImperativeHandle 
+//import React, { useRef, useState} from 'react';
 import {Camera} from "react-camera-pro"
 import styled from 'styled-components'
+//import { Camera } from './Camera'
+//import { CameraType } from './Camera/types'
+//import Spinner from './../../../shared/spinner/Spinner'
 import AWS from 'aws-sdk'
 import data from './bucket'
 import DniService from '../../../services/dni.services'
@@ -20,6 +24,7 @@ const s3 = new AWS.S3({
 })
 
 
+
 const Wrapper = styled.div`
   position: fixed;
   width: 100%;
@@ -34,7 +39,7 @@ const Control = styled.div`
   min-width: 130px;
   min-height: 130px;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(1, 37, 97);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -136,10 +141,10 @@ const TakePhotoButton = styled(Button)`
 
 const CameraPic = () => {
 const TransferPic = new DniService()   
-const camera = useRef(null)
+const camera =  useRef(null)//useRef<CameraType>(null)
 const [numberOfCameras, setNumberOfCameras] = useState(0)
-const [showImage, setShowImage] = useState(false)
-const [image, setImage] = useState(null)
+const [showImage, setShowImage] =  useState(false)//useState<boolean>(false)
+const [image, setImage] = useState(null)//useState<string | null>(null)
 let history = useHistory()
 return (
     <Wrapper>
@@ -147,27 +152,32 @@ return (
         < FullScreenImagePreview image={image} onClick={() => { setShowImage(!showImage) }} />) : (
           <Camera ref={camera} 
             numberOfCamerasCallback={setNumberOfCameras} 
-            aspectRatio={1.2/1.474} //{1.2/1.474}
-            facingMode='environment' 
+            aspectRatio={1.138/1.474} //{1.2/1.474}
+            facingMode='enviroment' 
             errorMessages={{
             noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
             permissionDenied: 'Permission denied. Please refresh and give camera permission.',
             switchCamera: 'It is not possible to switch camera to different one because there is only one video device accessible.',
             canvas: 'Canvas is not supported.'}}  /> )}
-
+        
         <Control>
         <ImagePreview image={image} onClick={() => { setShowImage(!showImage)}} />   
-            <TakePhotoButton onClick={() => {
+       
+       
+            <TakePhotoButton onClick={() => { 
+              
                 if (camera.current) {
+                    
                     const photo = camera.current.takePhoto()
-                
+                  
                       setImage(photo)
-
+                      
                       //let myImage = photo.replace(/^data:image\/\w+;base64,/, "")
                       let myImage = Buffer.from(photo.replace(/^data:image\/\w+;base64,/, ""),'base64')
-
+                      
                       const type = photo.split(';')[0].split('/')[1];
                       const imageName = "ocr_" + Math.floor(Math.random() * 500000)
+                      
                       const params = {
                         Bucket: data.BUCKET_NAME,
                         Key: `${imageName}.${type}`, // File name you want to save as in S3
@@ -180,30 +190,33 @@ return (
                        // Uploading files to the bucket
                       s3.upload(params, function(err, data) {
                       if (err) {
-                      throw err;
+                      throw err
                       }
-
+                      
                       console.log(`File uploaded successfully. ${data.Location}`)
-
+                      
                       const urlPic = data.Location
+                      
                       TransferPic.createNewDoc({photourl:urlPic})
                                  .then(response => TransferPic.updateNewDoc(response.data._id))
                                  .then(response => history.push(`/showDoc/${response.data._id}`))
                                  .catch(error => console.log(error))
 
-
+                                
                       })
-                  
+                       
                     }
+                    
                     }} />    
+                    
             <ChangeFacingCameraButton disabled={numberOfCameras <= 1} onClick={() => {
                 if (camera.current) {
                     const result = camera.current.switchCamera()
-
+                    console.log(result)  
                 
                     } 
                     }} 
-                      
+
                     />  
           
         </Control>
